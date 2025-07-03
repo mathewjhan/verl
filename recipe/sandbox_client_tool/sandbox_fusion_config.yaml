@@ -1,0 +1,33 @@
+tools:
+  - class_name: "recipe.sandbox_client_tool.sandbox_client_tool.SandboxClientTool"
+    config:
+      sandbox_fusion_url: "https://sandbox/run_code"
+      num_workers: 128
+      enable_global_rate_limit: true
+      rate_limit: 128
+      default_timeout: 30
+      default_language: "python"
+      memory_limit_mb: 1024
+      type: native
+
+      python_file_path: "/osmosis/workspace/verl/recipes/sandbox_client_tool/multi.py"
+      python_func_entrypoint: "multiply"
+
+    tool_schema:
+      type: "function"
+      function:
+        name: "multiplier"
+        description: "A tool for multiplying two floats."
+        parameters:
+          type: "object"
+          properties:
+            first_val:
+              type: "number"
+              description: "first value"
+            second_val:
+              type: "number"
+              description: "second_value"
+
+            second_val:
+          required: ["first_val", "second_val"]
+

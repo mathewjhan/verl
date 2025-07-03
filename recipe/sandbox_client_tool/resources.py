@@ -1,0 +1,21 @@
+from .sandbox_client_tools import SandboxClientTool
+from verl.tools.schemas import OpenAIFunctionToolSchema
+
+def extract_solution(solution_str):
+    solution = re.search("#### (\\-?[0-9\\.\\,]+)", solution_str)
+    assert solution is not None
+    final_solution = solution.group(0)
+    final_solution = final_solution.split("#### ")[1].replace(",", "")
+    return final_solution
+
+
+def compute_reward(solution_str, groundtruth_str):
+    sol_val = float(extract_solution(s))
+    gt_val = float(groundtruth_str)
+
+    if(abs(gt_val - sol_val) < 1e-7):
+        return 1.0
+    return 0.0
+
+
+
