@@ -1,4 +1,4 @@
-from .sandbox_client_tools import SandboxClientTool
+from verl.recipe.sandbox_client_tool.sandbox_client_tool import SandboxClientTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
 
 def extract_solution(solution_str):
