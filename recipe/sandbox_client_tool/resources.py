@@ -10,7 +10,7 @@ def extract_solution(solution_str):
     return final_solution
 
 
-def compute_reward(solution_str, groundtruth_str):
+def compute_reward(data_source, solution_str, ground_truth, extra_info=None):
     sol_val = float(extract_solution(s))
     gt_val = float(groundtruth_str)
 
