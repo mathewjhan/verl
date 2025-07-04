@@ -11,8 +11,8 @@ def extract_solution(solution_str):
 
 
 def compute_reward(data_source, solution_str, ground_truth, extra_info=None):
-    sol_val = float(extract_solution(s))
-    gt_val = float(groundtruth_str)
+    sol_val = float(extract_solution(solution_str))
+    gt_val = float(ground_truth)
 
     if(abs(gt_val - sol_val) < 1e-7):
         return 1.0
