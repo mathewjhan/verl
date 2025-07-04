@@ -1,5 +1,5 @@
 tools:
-  - class_name: "recipe.sandbox_client_tool.sandbox_client_tool.SandboxClientTool"
+  - class_name: "recipe.sandbox_client_tool.resources.SandboxClientTool"
     config:
       sandbox_fusion_url: "https://sandbox/run_code"
       num_workers: 128
