@@ -27,7 +27,5 @@ tools:
             second_val:
               type: "number"
               description: "second_value"
-
-            second_val:
           required: ["first_val", "second_val"]
 
