@@ -1,7 +1,7 @@
 from verl.tools.sandbox_fusion_tools import SandboxFusionTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
 
-def SandboxClientTool(SandboxFusionTool):
+class SandboxClientTool(SandboxFusionTool):
     def __init__(self, config: dict, tool_schema: OpenAIFunctionToolSchema):
         """
         _tool_schema = OpenAIFunctionToolSchema.model_validate({

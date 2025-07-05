@@ -56,6 +56,7 @@ def make_map_fn(split):
                 "split": split,
                 "index": idx
             },
+            "agent_name": "tool_agent"
         }
         return data
 
