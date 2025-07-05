@@ -1,3 +1,4 @@
+from typing import Any, Tuple
 from verl.tools.sandbox_fusion_tools import SandboxFusionTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
 
