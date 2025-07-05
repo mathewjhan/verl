@@ -10,7 +10,7 @@ tools:
       memory_limit_mb: 1024
       type: native
 
-      python_file_path: "/osmosis/workspace/verl/recipes/sandbox_client_tool/multi.py"
+      python_file_path: "/osmosis/workspace/verl/recipe/sandbox_client_tool/multi.py"
       python_func_entrypoint: "multiply"
 
     tool_schema:
