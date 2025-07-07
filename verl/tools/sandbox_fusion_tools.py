@@ -184,6 +184,7 @@ class SandboxFusionTool(BaseTool):
             logger.debug(f"actual_output from sandbox fusion: {actual_output},{instance_id}")
             return actual_output
         else:
+            print(f"Failed, encountered run status: {metadata['run_status']}")
             return "no stdout here"
 
     async def calc_reward(self, instance_id: str, **kwargs) -> str:

@@ -1,10 +1,10 @@
 tools:
   - class_name: "verl.tools.sandbox_client_tool.SandboxClientTool"
     config:
-      sandbox_fusion_url: "https://sandbox/run_code"
+      sandbox_fusion_url: "http://sandbox/run_code"
       num_workers: 256
       enable_global_rate_limit: true
-      rate_limit: 2560
+      rate_limit: 256
       default_timeout: 30
       default_language: "python"
       memory_limit_mb: 1024
