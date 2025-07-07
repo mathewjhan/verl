@@ -5,7 +5,8 @@ from verl.tools.schemas import OpenAIFunctionToolSchema
 
 def extract_solution(solution_str):
     solution = re.search("#### (\\-?[0-9\\.\\,]+)", solution_str)
-    assert solution is not None
+    if(not solution or solution is None):
+        return None
     final_solution = solution.group(0)
     final_solution = final_solution.split("#### ")[1].replace(",", "")
     return final_solution
@@ -14,6 +15,9 @@ def extract_solution(solution_str):
 def compute_reward(data_source, solution_str, ground_truth, extra_info=None):
     sol_val = float(extract_solution(solution_str))
     gt_val = float(ground_truth)
+
+    if(sol_val is None):
+        return 0.0
 
     if(abs(gt_val - sol_val) < 1e-7):
         return 1.0

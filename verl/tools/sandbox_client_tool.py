@@ -52,7 +52,7 @@ class SandboxClientTool(SandboxFusionTool):
         language = parameters.get("language", self.default_language)
 
         if language != "python":
-            raise ValueError("Only Python supported with SandboxFusionPythonFunctionCallTool")
+            raise ValueError("Only Python supported with SandboxClientTool")
 
         if not isinstance(code, str):
             code = str(code)
