@@ -46,7 +46,7 @@ class SandboxClientTool(SandboxFusionTool):
         return f"{self.python_code}\nprint({self.func_entrypoint}({func_args}))"
 
     async def execute(self, instance_id: str, parameters: dict[str, Any], **kwargs) -> Tuple[str, float, dict]:
-        func_args = zip(self.func_arg_names, map(lambda a : parameters[a], self.func_arg_names))
+        func_args = dict(zip(self.func_arg_names, map(lambda a : parameters[a], self.func_arg_names)))
         code = self.format_code(func_args)
         timeout = parameters.get("timeout", self.default_timeout)
         language = parameters.get("language", self.default_language)

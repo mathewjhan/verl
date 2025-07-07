@@ -56,6 +56,18 @@ def make_map_fn(split):
                 "split": split,
                 "index": idx
             },
+            # BEGIN: TESTING
+            "raw_prompt": [
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT,
+                },
+                {
+                    "role": "user",
+                    "content": query,
+                }
+            ],
+            # END: TESTING
             "agent_name": "tool_agent"
         }
         return data
