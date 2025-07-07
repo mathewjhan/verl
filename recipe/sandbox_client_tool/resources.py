@@ -13,7 +13,13 @@ def extract_solution(solution_str):
 
 
 def compute_reward(data_source, solution_str, ground_truth, extra_info=None):
-    sol_val = float(extract_solution(solution_str))
+    extracted = extract_solution(solution_str)
+    try:
+        sol_val = float(extracted)
+    except:
+        print(f"Failed to extract {extracted}")
+        return 0.0
+
     gt_val = float(ground_truth)
 
     if(sol_val is None):
