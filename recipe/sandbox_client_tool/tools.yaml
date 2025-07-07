@@ -4,7 +4,7 @@ tools:
       sandbox_fusion_url: "https://sandbox/run_code"
       num_workers: 256
       enable_global_rate_limit: true
-      rate_limit: 256
+      rate_limit: 2560
       default_timeout: 30
       default_language: "python"
       memory_limit_mb: 1024
