@@ -4,11 +4,10 @@ from verl.tools.sandbox_fusion_tools import SandboxFusionTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
 
 def extract_solution(solution_str):
-    solution = re.search("#### (\\-?[0-9\\.\\,]+)", solution_str)
+    solution = re.search(r'####\s*([-+]?\d*\.?\d+)', solution_str)
     if(not solution or solution is None):
         return None
-    final_solution = solution.group(0)
-    final_solution = final_solution.split("#### ")[1].replace(",", "")
+    final_solution = solution.group(1)
     return final_solution
 
 
