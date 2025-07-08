@@ -259,9 +259,9 @@ def _execute_user_function():
             # Attempt to instantiate and get method.
             # Errors (e.g., Solution not a class, instantiation fails, method missing)
             # will be caught by the broad except block below.
-            _solution_instance = _Solution_class() 
+            _solution_instance = _Solution_class()
             _target_callable = getattr(_solution_instance, _SANDBOX_FN_NAME)
-        
+
         if not _target_callable:
             sys.stderr.write(f"WrapperError: Function or method '{{_SANDBOX_FN_NAME}}' not found.\\n")
             return None, True # result, error_occurred
@@ -286,10 +286,9 @@ if __name__ == '__main__':
             print(str(_result))
     # Optional: To explicitly exit with an error code if the sandbox relies on it
     # else:
-    #    sys.exit(1) 
+    #    sys.exit(1)
 """
         current_generation_code = wrapper_code
-
     try:
         if concurrent_semaphore:
             # logger.debug(f"Case {case_index + 1}: Attempting to acquire semaphore.")
@@ -298,7 +297,7 @@ if __name__ == '__main__':
                 api_response, error_msg = call_sandbox_api(
                     sandbox_fusion_url=sandbox_fusion_url,
                     code=current_generation_code,
-                    stdin=str(stdin_data),
+                    stdin=None if not stdin_data else str(stdin_data),
                     compile_timeout=timeout,
                     run_timeout=timeout,
                     memory_limit_mb=memory_limit_mb,
@@ -309,7 +308,7 @@ if __name__ == '__main__':
             api_response, error_msg = call_sandbox_api(
                 sandbox_fusion_url=sandbox_fusion_url,
                 code=current_generation_code,
-                stdin=str(stdin_data),
+                stdin=None if not stdin_data else str(stdin_data),
                 compile_timeout=timeout,
                 run_timeout=timeout,
                 memory_limit_mb=memory_limit_mb,
