@@ -1,5 +1,5 @@
 tools:
-  - class_name: "verl.tools.sandbox_client_tool.SandboxClientTool"
+  - class_name: "recipe.sandbox_client_tool.SandboxClientTool"
     config:
       sandbox_fusion_url: "http://sandbox:8080/run_code"
       num_workers: 256

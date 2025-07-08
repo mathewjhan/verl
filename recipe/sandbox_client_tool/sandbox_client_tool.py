@@ -1,6 +1,8 @@
 from typing import Any, Tuple
+
 from verl.tools.sandbox_fusion_tools import SandboxFusionTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
+
 
 class SandboxClientTool(SandboxFusionTool):
     def __init__(self, config: dict, tool_schema: OpenAIFunctionToolSchema):
@@ -29,7 +31,7 @@ class SandboxClientTool(SandboxFusionTool):
         """
         super().__init__(config, tool_schema)
 
-        with open(self.config.get("python_file_path"), 'r') as f:
+        with open(self.config.get("python_file_path")) as f:
             self.python_code = f.read()
 
         self.func_entrypoint = self.config.get("python_func_entrypoint")
@@ -46,7 +48,7 @@ class SandboxClientTool(SandboxFusionTool):
         return f"{self.python_code}\nprint({self.func_entrypoint}({str_args}))"
 
     async def execute(self, instance_id: str, parameters: dict[str, Any], **kwargs) -> Tuple[str, float, dict]:
-        func_args = dict(zip(self.func_arg_names, map(lambda a : parameters[a], self.func_arg_names)))
+        func_args = dict(zip(self.func_arg_names, map(lambda a: parameters[a], self.func_arg_names)))
         code = self.format_code(func_args)
         timeout = parameters.get("timeout", self.default_timeout)
         language = parameters.get("language", self.default_language)
@@ -60,4 +62,3 @@ class SandboxClientTool(SandboxFusionTool):
         result = await self.execution_pool.execute.remote(self.execute_code, instance_id, code, timeout, language)
 
         return result, 0.0, {}
-
