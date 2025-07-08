@@ -176,7 +176,7 @@ class SandboxFusionTool(BaseTool):
 
     def execute_code(self, instance_id, code, timeout=30, language="python"):
         result_status, metadata = _process_single_case(
-            0, None, None, self.sandbox_fusion_url, code, timeout, self.memory_limit_mb, language
+            0, "", "", self.sandbox_fusion_url, code, timeout, self.memory_limit_mb, language
         )
         # we should always expect this since we don't have correct answer
         if metadata["run_status"] == "Finished":
