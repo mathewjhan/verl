@@ -1,4 +1,18 @@
-from typing import Any, Tuple
+# Copyright 2024 Bytedance Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from typing import Any
 
 from verl.tools.sandbox_fusion_tools import SandboxFusionTool
 from verl.tools.schemas import OpenAIFunctionToolSchema
@@ -47,8 +61,8 @@ class SandboxClientTool(SandboxFusionTool):
         str_args = self.args_to_str(func_args)
         return f"{self.python_code}\nprint({self.func_entrypoint}({str_args}))"
 
-    async def execute(self, instance_id: str, parameters: dict[str, Any], **kwargs) -> Tuple[str, float, dict]:
-        func_args = dict(zip(self.func_arg_names, map(lambda a: parameters[a], self.func_arg_names)))
+    async def execute(self, instance_id: str, parameters: dict[str, Any], **kwargs) -> tuple[str, float, dict]:
+        func_args = dict(zip(self.func_arg_names, map(lambda a: parameters[a], self.func_arg_names), strict=False))
         code = self.format_code(func_args)
         timeout = parameters.get("timeout", self.default_timeout)
         language = parameters.get("language", self.default_language)

@@ -19,7 +19,7 @@ import threading
 import time
 import traceback
 import uuid
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import requests
 
@@ -67,12 +67,12 @@ SUPPORTED_LANGUAGES = [
 def call_sandbox_api(
     sandbox_fusion_url: str,
     code: str,
-    stdin: str,
+    stdin: Optional[str],
     compile_timeout: int,
     run_timeout: int,
     memory_limit_mb: int,
     language: str = "python",
-) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:  # <-- Remove request_id parameter
+) -> tuple[Optional[dict[str, Any]], Optional[str]]:  # <-- Remove request_id parameter
     """
     Calls the remote sandbox API to execute code with retry logic for Gateway Timeout,
     using increasing delay between retries. Logs internal calls with a unique ID.
@@ -182,7 +182,7 @@ def _process_single_case(
     language: str,
     concurrent_semaphore: Optional[threading.Semaphore] = None,
     fn_name: Optional[str] = None,
-) -> Tuple[int, Dict[str, Any]]:
+) -> tuple[int, dict[str, Any]]:
     """Helper function to process a single test case."""
     api_response = None
     error_msg = None
@@ -289,6 +289,7 @@ if __name__ == '__main__':
     #    sys.exit(1)
 """
         current_generation_code = wrapper_code
+    stdin = None if stdin_data is None else str(stdin_data)
     try:
         if concurrent_semaphore:
             # logger.debug(f"Case {case_index + 1}: Attempting to acquire semaphore.")
@@ -297,7 +298,7 @@ if __name__ == '__main__':
                 api_response, error_msg = call_sandbox_api(
                     sandbox_fusion_url=sandbox_fusion_url,
                     code=current_generation_code,
-                    stdin=None if not stdin_data else str(stdin_data),
+                    stdin=stdin,
                     compile_timeout=timeout,
                     run_timeout=timeout,
                     memory_limit_mb=memory_limit_mb,
@@ -308,7 +309,7 @@ if __name__ == '__main__':
             api_response, error_msg = call_sandbox_api(
                 sandbox_fusion_url=sandbox_fusion_url,
                 code=current_generation_code,
-                stdin=None if not stdin_data else str(stdin_data),
+                stdin=stdin,
                 compile_timeout=timeout,
                 run_timeout=timeout,
                 memory_limit_mb=memory_limit_mb,
@@ -321,7 +322,7 @@ if __name__ == '__main__':
 
     metadata = {
         "case_index": case_index,
-        "input": str(stdin_data),
+        "input": stdin,
         "expected_output": str(expected_output),
         "api_request_error": error_msg,
         "api_response": None,
@@ -345,7 +346,7 @@ if __name__ == '__main__':
         # Log code and input only on error for brevity
         generation_to_log = generation[:200] + "..." if len(generation) > 200 else generation
         logger.error(f"Case {case_index}: code: {generation_to_log}")
-        logger.error(f"Case {case_index}: input: {str(stdin_data)}")
+        logger.error(f"Case {case_index}: input: {stdin}")
     elif api_response:
         # --- Add debug logging ---
         logger.debug(f"Case {case_index}: API Response: {api_response}")
@@ -452,7 +453,7 @@ def check_correctness(
     memory_limit_mb: int = 1024,
     language: str = "python",
     concurrent_semaphore: Optional[threading.Semaphore] = None,
-) -> Tuple[List[Any], List[Dict[str, Any]]]:
+) -> tuple[list[Any], list[dict[str, Any]]]:
     """
     Checks the correctness of code generation using the remote sandbox API,
     processing test cases concurrently.
