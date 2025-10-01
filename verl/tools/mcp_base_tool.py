@@ -73,10 +73,10 @@ class MCPBaseTool(BaseTool):
             err_msg = f"\n An unexpected error occurred: {e}"
 
         # logger.debug(f"Tool result for instance {instance_id} with tool {self.name}: {call_tool_result.content}")
+        if(err_msg):
+            logger.error(f"[MCPTool] _call_tool: {err_msg}")
         result, metadata = self._parse_tool_result(call_tool_result.content)
         metadata["api_request_error"] = None if not err_msg else err_msg
-        if(err_msg):
-            print(err_msg)
         return result, metadata
 
     @rollout_trace_op
