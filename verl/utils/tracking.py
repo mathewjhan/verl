@@ -62,6 +62,7 @@ class Tracking:
 
         if "tracking" in default_backend or "wandb" in default_backend:
             import wandb
+            import os
 
             settings = None
             if config and config["trainer"].get("wandb_proxy", None):
