@@ -64,7 +64,6 @@ class Tracking:
             import os
 
             import wandb
-            import os
 
             settings = None
             if config and config["trainer"].get("wandb_proxy", None):
