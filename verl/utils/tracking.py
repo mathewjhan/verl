@@ -61,6 +61,8 @@ class Tracking:
         self.logger = {}
 
         if "tracking" in default_backend or "wandb" in default_backend:
+            import os
+
             import wandb
             import os
 
