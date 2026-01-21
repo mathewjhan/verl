@@ -659,7 +659,11 @@ class vLLMHttpServer:
                 req_state.queue.put(request_output)
 
             # Abort requests in the output processor and engine core
-            self.engine.output_processor.abort_requests(request_ids)
+            if _VLLM_VERSION >= version.parse("0.14.0"):
+                self.engine.output_processor.abort_requests(request_ids, False)
+            else:
+                self.engine.output_processor.abort_requests(request_ids)
+
             await self.engine.engine_core.abort_requests_async(request_ids)
 
             # Try to reset prefix cache to ensure clean state
@@ -699,7 +703,11 @@ class vLLMHttpServer:
             req_state.queue.put(request_output)
 
             # Abort in output processor and engine core
-            self.engine.output_processor.abort_requests([request_id])
+            if _VLLM_VERSION >= version.parse("0.14.0"):
+                self.engine.output_processor.abort_requests([request_id], False)
+            else:
+                self.engine.output_processor.abort_requests([request_id])
+
             await self.engine.engine_core.abort_requests_async([request_id])
 
             # Try to reset prefix cache to ensure clean state
